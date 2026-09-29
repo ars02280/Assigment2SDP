@@ -1,0 +1,103 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+interface Upscaler<F extends GraphicsFamily>
+interface FrameGenerator<F extends GraphicsFamily>
+interface RayRegenerator<F extends GraphicsFamily>
+interface LatencyReducer<F extends GraphicsFamily>
+interface GraphicsFactory<F extends GraphicsFamily>
+interface GraphicsFamily
+
+class FsrUpscaler
+class DlssUpscaler
+class XessUpscaler
+class UniversalUpscaler
+class AmdFrameGenerator
+class NvidiaFrameGenerator
+class IntelFrameGenerator
+class UniversalFrameGenerator
+class AmdRayRegenerator
+class NvidiaRayRegenerator
+class IntelRayRegenerator
+class UniversalRayRegenerator
+class AmdLatencyReducer
+class NvidiaLatencyReducer
+class IntelLatencyReducer
+class UniversalLatencyReducer
+
+class AmdFactory
+class NvidiaFactory
+class IntelFactory
+class UniversalFactory
+class FactorySelector
+class Client
+class RenderPipeline<F extends GraphicsFamily>
+
+abstract class UpscalingCreator
+class FsrCreator
+class DlssCreator
+class XessCreator
+interface UpscalingPass
+class FsrUpscalingPass
+class DlssUpscalingPass
+class XessUpscalingPass
+
+UpscalingPass <|.. FsrUpscalingPass
+UpscalingPass <|.. DlssUpscalingPass
+UpscalingPass <|.. XessUpscalingPass
+UpscalingCreator <|-- FsrCreator
+UpscalingCreator <|-- DlssCreator
+UpscalingCreator <|-- XessCreator
+UpscalingCreator ..> UpscalingPass : Factory Method
+
+GraphicsFactory <|.. AmdFactory
+GraphicsFactory <|.. NvidiaFactory
+GraphicsFactory <|.. IntelFactory
+GraphicsFactory <|.. UniversalFactory
+Upscaler <|.. FsrUpscaler
+Upscaler <|.. DlssUpscaler
+Upscaler <|.. XessUpscaler
+Upscaler <|.. UniversalUpscaler
+FrameGenerator <|.. AmdFrameGenerator
+FrameGenerator <|.. NvidiaFrameGenerator
+FrameGenerator <|.. IntelFrameGenerator
+FrameGenerator <|.. UniversalFrameGenerator
+RayRegenerator <|.. AmdRayRegenerator
+RayRegenerator <|.. NvidiaRayRegenerator
+RayRegenerator <|.. IntelRayRegenerator
+RayRegenerator <|.. UniversalRayRegenerator
+LatencyReducer <|.. AmdLatencyReducer
+LatencyReducer <|.. NvidiaLatencyReducer
+LatencyReducer <|.. IntelLatencyReducer
+LatencyReducer <|.. UniversalLatencyReducer
+
+AmdFactory ..> FsrUpscaler
+AmdFactory ..> AmdFrameGenerator
+AmdFactory ..> AmdRayRegenerator
+AmdFactory ..> AmdLatencyReducer
+NvidiaFactory ..> DlssUpscaler
+NvidiaFactory ..> NvidiaFrameGenerator
+NvidiaFactory ..> NvidiaRayRegenerator
+NvidiaFactory ..> NvidiaLatencyReducer
+IntelFactory ..> XessUpscaler
+IntelFactory ..> IntelFrameGenerator
+IntelFactory ..> IntelRayRegenerator
+IntelFactory ..> IntelLatencyReducer
+UniversalFactory ..> UniversalUpscaler
+UniversalFactory ..> UniversalFrameGenerator
+UniversalFactory ..> UniversalRayRegenerator
+UniversalFactory ..> UniversalLatencyReducer
+
+Client ..> FactorySelector
+Client ..> GraphicsFactory : Abstract Factory
+Client ..> RenderPipeline
+RenderPipeline --> Upscaler
+RenderPipeline --> FrameGenerator
+RenderPipeline --> RayRegenerator
+RenderPipeline --> LatencyReducer
+
+note "Factory Method" as FM
+note "Abstract Factory" as AF
+FM .. UpscalingCreator
+AF .. GraphicsFactory
+@enduml
