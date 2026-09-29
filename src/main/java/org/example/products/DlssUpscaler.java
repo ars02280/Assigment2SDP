@@ -1,26 +1,11 @@
-package pipeline.products;
+package org.example.products;
 
-import pipeline.model.QualityMode;
+import org.example.model.NvidiaFamily;
+import org.example.model.QualityMode;
+import org.example.model.Resolution;
 
-/** NVIDIA family: DLSS super resolution. */
-public class DlssUpscaler implements Upscaler {
-
-    @Override
-    public String name() {
-        return "NVIDIA DLSS";
-    }
-
-    @Override
-    public double renderScale(QualityMode mode) {
-        return switch (mode) {
-            case QUALITY -> 0.667;
-            case BALANCED -> 0.58;
-            case PERFORMANCE -> 0.50;
-        };
-    }
-
-    @Override
-    public double upscaleCostMs() {
-        return 0.8;
-    }
+public final class DlssUpscaler extends AbstractProductSupport<NvidiaFamily> implements Upscaler<NvidiaFamily> {
+    public DlssUpscaler(NvidiaFamily family) { super(family); }
+    public String technology() { return "DLSS"; }
+    public String upscale(Resolution input, QualityMode mode) { return technology() + " placeholder: " + input + " -> " + mode; }
 }

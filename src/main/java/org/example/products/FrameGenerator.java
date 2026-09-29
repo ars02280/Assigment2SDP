@@ -1,16 +1,8 @@
-package pipeline.products;
+package org.example.products;
 
-/**
- * Product type 2: inserts extra generated frames between rendered ones.
- * Raises the displayed FPS but adds input latency.
- */
-public interface FrameGenerator {
+import org.example.model.GraphicsFamily;
 
-    String name();
-
-    /** How many extra frames are generated per one rendered frame. */
-    int generatedFramesPerRenderedFrame();
-
-    /** Input latency added by holding frames back for interpolation, in ms. */
-    double addedLatencyMs();
+public interface FrameGenerator<F extends GraphicsFamily> {
+    F family();
+    String generateFrames(int renderedFrames);
 }

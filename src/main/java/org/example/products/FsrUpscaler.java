@@ -1,26 +1,11 @@
-package pipeline.products;
+package org.example.products;
 
-import pipeline.model.QualityMode;
+import org.example.model.AmdFamily;
+import org.example.model.QualityMode;
+import org.example.model.Resolution;
 
-/** AMD family: FidelityFX Super Resolution. */
-public class FsrUpscaler implements Upscaler {
-
-    @Override
-    public String name() {
-        return "AMD FSR";
-    }
-
-    @Override
-    public double renderScale(QualityMode mode) {
-        return switch (mode) {
-            case QUALITY -> 0.667;
-            case BALANCED -> 0.59;
-            case PERFORMANCE -> 0.50;
-        };
-    }
-
-    @Override
-    public double upscaleCostMs() {
-        return 0.6;
-    }
+public final class FsrUpscaler extends AbstractProductSupport<AmdFamily> implements Upscaler<AmdFamily> {
+    public FsrUpscaler(AmdFamily family) { super(family); }
+    public String technology() { return "FSR"; }
+    public String upscale(Resolution input, QualityMode mode) { return technology() + " placeholder: " + input + " -> " + mode; }
 }

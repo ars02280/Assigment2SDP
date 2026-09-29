@@ -1,20 +1,8 @@
-package pipeline.products;
+package org.example.products;
 
-/** Intel family: XeSS frame generation. */
-public class IntelFrameGenerator implements FrameGenerator {
+import org.example.model.IntelFamily;
 
-    @Override
-    public String name() {
-        return "Intel XeSS Frame Generation";
-    }
-
-    @Override
-    public int generatedFramesPerRenderedFrame() {
-        return 1;
-    }
-
-    @Override
-    public double addedLatencyMs() {
-        return 7.0;
-    }
+public final class IntelFrameGenerator extends AbstractProductSupport<IntelFamily> implements FrameGenerator<IntelFamily> {
+    public IntelFrameGenerator(IntelFamily family) { super(family); }
+    public String generateFrames(int renderedFrames) { return "XeSS Frame Generation: " + renderedFrames + " rendered frames"; }
 }

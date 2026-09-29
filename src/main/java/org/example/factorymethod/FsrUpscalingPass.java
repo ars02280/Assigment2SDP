@@ -1,13 +1,14 @@
-package pipeline.factorymethod;
+package org.example.factorymethod;
 
-import pipeline.products.FsrUpscaler;
-import pipeline.products.Upscaler;
+import org.example.model.QualityMode;
+import org.example.model.Resolution;
 
-/** Concrete Creator for the AMD family. */
-public class FsrUpscalingPass extends UpscalingPass {
+public final class FsrUpscalingPass implements UpscalingPass {
+    @Override
+    public String technology() { return "AMD FSR"; }
 
     @Override
-    protected Upscaler createUpscaler() {
-        return new FsrUpscaler();
+    public UpscaleReport upscale(Resolution input, QualityMode mode) {
+        return new UpscaleReport(technology(), input, input, "FSR placeholder processed in " + mode + " mode");
     }
 }

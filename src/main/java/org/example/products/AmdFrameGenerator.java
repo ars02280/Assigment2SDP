@@ -1,20 +1,8 @@
-package pipeline.products;
+package org.example.products;
 
-/** AMD family: Fluid Motion Frames style interpolation. */
-public class AmdFrameGenerator implements FrameGenerator {
+import org.example.model.AmdFamily;
 
-    @Override
-    public String name() {
-        return "AMD Fluid Motion Frames";
-    }
-
-    @Override
-    public int generatedFramesPerRenderedFrame() {
-        return 1;
-    }
-
-    @Override
-    public double addedLatencyMs() {
-        return 8.0;
-    }
+public final class AmdFrameGenerator extends AbstractProductSupport<AmdFamily> implements FrameGenerator<AmdFamily> {
+    public AmdFrameGenerator(AmdFamily family) { super(family); }
+    public String generateFrames(int renderedFrames) { return "FSR Frame Generation: " + renderedFrames + " rendered frames"; }
 }

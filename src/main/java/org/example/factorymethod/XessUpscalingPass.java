@@ -1,13 +1,14 @@
-package pipeline.factorymethod;
+package org.example.factorymethod;
 
-import pipeline.products.Upscaler;
-import pipeline.products.XessUpscaler;
+import org.example.model.QualityMode;
+import org.example.model.Resolution;
 
-/** Concrete Creator for the Intel family. */
-public class XessUpscalingPass extends UpscalingPass {
+public final class XessUpscalingPass implements UpscalingPass {
+    @Override
+    public String technology() { return "Intel XeSS"; }
 
     @Override
-    protected Upscaler createUpscaler() {
-        return new XessUpscaler();
+    public UpscaleReport upscale(Resolution input, QualityMode mode) {
+        return new UpscaleReport(technology(), input, input, "XeSS placeholder processed in " + mode + " mode");
     }
 }

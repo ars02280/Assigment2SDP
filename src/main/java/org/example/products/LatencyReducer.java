@@ -1,13 +1,8 @@
-package pipeline.products;
+package org.example.products;
 
-/**
- * Product type 3: shortens the CPU-to-display pipeline to cut input lag.
- * Frame generation is usually only acceptable together with one of these.
- */
-public interface LatencyReducer {
+import org.example.model.GraphicsFamily;
 
-    String name();
-
-    /** How much input latency this technology removes, in milliseconds. */
-    double latencyReductionMs();
+public interface LatencyReducer<F extends GraphicsFamily> {
+    F family();
+    String reduceLatency(int targetFps);
 }

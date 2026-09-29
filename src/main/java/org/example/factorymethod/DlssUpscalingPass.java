@@ -1,13 +1,14 @@
-package pipeline.factorymethod;
+package org.example.factorymethod;
 
-import pipeline.products.DlssUpscaler;
-import pipeline.products.Upscaler;
+import org.example.model.QualityMode;
+import org.example.model.Resolution;
 
-/** Concrete Creator for the NVIDIA family. */
-public class DlssUpscalingPass extends UpscalingPass {
+public final class DlssUpscalingPass implements UpscalingPass {
+    @Override
+    public String technology() { return "NVIDIA DLSS"; }
 
     @Override
-    protected Upscaler createUpscaler() {
-        return new DlssUpscaler();
+    public UpscaleReport upscale(Resolution input, QualityMode mode) {
+        return new UpscaleReport(technology(), input, input, "DLSS placeholder processed in " + mode + " mode");
     }
 }

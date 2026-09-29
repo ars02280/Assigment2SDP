@@ -1,26 +1,11 @@
-package pipeline.products;
+package org.example.products;
 
-import pipeline.model.QualityMode;
+import org.example.model.IntelFamily;
+import org.example.model.QualityMode;
+import org.example.model.Resolution;
 
-/** Intel family: XeSS super sampling. */
-public class XessUpscaler implements Upscaler {
-
-    @Override
-    public String name() {
-        return "Intel XeSS";
-    }
-
-    @Override
-    public double renderScale(QualityMode mode) {
-        return switch (mode) {
-            case QUALITY -> 0.667;
-            case BALANCED -> 0.59;
-            case PERFORMANCE -> 0.50;
-        };
-    }
-
-    @Override
-    public double upscaleCostMs() {
-        return 1.0;
-    }
+public final class XessUpscaler extends AbstractProductSupport<IntelFamily> implements Upscaler<IntelFamily> {
+    public XessUpscaler(IntelFamily family) { super(family); }
+    public String technology() { return "XeSS"; }
+    public String upscale(Resolution input, QualityMode mode) { return technology() + " placeholder: " + input + " -> " + mode; }
 }

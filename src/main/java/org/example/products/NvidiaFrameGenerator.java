@@ -1,20 +1,8 @@
-package pipeline.products;
+package org.example.products;
 
-/** NVIDIA family: (multi) frame generation. */
-public class NvidiaFrameGenerator implements FrameGenerator {
+import org.example.model.NvidiaFamily;
 
-    @Override
-    public String name() {
-        return "NVIDIA Frame Generation";
-    }
-
-    @Override
-    public int generatedFramesPerRenderedFrame() {
-        return 3;
-    }
-
-    @Override
-    public double addedLatencyMs() {
-        return 6.0;
-    }
+public final class NvidiaFrameGenerator extends AbstractProductSupport<NvidiaFamily> implements FrameGenerator<NvidiaFamily> {
+    public NvidiaFrameGenerator(NvidiaFamily family) { super(family); }
+    public String generateFrames(int renderedFrames) { return "DLSS Frame Generation: " + renderedFrames + " rendered frames"; }
 }
